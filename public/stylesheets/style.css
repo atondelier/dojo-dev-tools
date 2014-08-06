@@ -5,3 +5,10 @@ body {
 a {
   color: #00B7FF;
 }
+#ul {
+    background: black;
+    margin: 10px 0;
+}
+#ul > li {
+    color: white;
+}
