@@ -3,13 +3,42 @@
 <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
 </head>
 <body>
 <h1><%= title %></h1>
-<a href="<%= routing.home.path %>">Home</a>
-<button id="toggle">PLAY/PAUSE</button>
-<button id="clearLiRetainingArray">Clear li retaining array</button>
-<label for="readHeightCheckBox">Read height</label><input type="checkbox" id="readHeightCheckBox"/>
+<div class="row">
+    <a href="<%= routing.home.path %>">Home</a>
+</div>
+<div class="row">
+
+    <div class="col-md-3 form-group">
+        <label for="amountOfLiAppendInput">Amount of appended elements</label><input type="number" value="20" id="amountOfLiAppendInput" class="form-control"/>
+    </div>
+
+    <div class="col-md-3 form-group">
+        <label for="heavyStringLengthInput">Amount of appended elements</label><input type="number" value="100" id="heavyStringLengthInput" class="form-control"/>
+    </div>
+
+    <div class="col-md-6 form-group">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="readHeightCheckBox"/> Read height
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="useFragmentCheckBox"/> Use fragment
+            </label>
+        </div>
+    </div>
+
+</div>
+
+<div class="btn-toolbar">
+    <button class="btn btn-primary" id="toggle">PLAY/PAUSE</button>
+    <button class="btn btn-primary" id="clearLiRetainingArray">Clear li retaining array</button>
+</div>
 <ul id="ul"></ul>
 <script src="javascripts/forcedLayout.js"></script>
 </body>

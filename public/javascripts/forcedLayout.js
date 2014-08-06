@@ -1,20 +1,28 @@
 ;(function() {
     "use strict";
 
+    console.time = console.time || function() {};
+    console.timeEnd = console.timeEnd || function() {};
+
+    var ul = document.getElementById('ul');
+    var readHeightCheckBox = document.getElementById('readHeightCheckBox');
+    var amountOfLiAppendInput = document.getElementById('amountOfLiAppendInput');
+    var heavyStringLengthInput = document.getElementById('heavyStringLengthInput');
+    var useFragmentCheckBox = document.getElementById('useFragmentCheckBox');
+
     var intervalIndex = null;
     var active = false;
-    var ul = document.getElementById('ul');
     var liRetainingArray = window.liRetainingArray = [];
-    var readHeightCheckBox = document.getElementById('readHeightCheckBox');
 
     function HeavyObject() {
-        this.heavyString = new Array(1e5).join(' ');
+        this.heavyString = new Array(+heavyStringLengthInput.value).join(' ');
     }
 
     function createLi() {
         var li = document.createElement('li');
         var customContent = document.createElement('customContent');
         customContent.textContent = 'li';
+        customContent._heavyObject = new HeavyObject();
         li.appendChild(customContent);
         return li;
     }
@@ -30,17 +38,27 @@
     function fillUl() {
         console.time('fillUl');
         clearUl();
-        var n = 1e0;
-        while(n--) appendLi();
+        var n = +amountOfLiAppendInput.value;
+        var useFragment = useFragmentCheckBox.checked;
+        if(useFragment) {
+            var fragment = document.createDocumentFragment();
+            while(n--) fragment.appendChild(appendLi(true));
+        } else {
+            while(n--) appendLi();
+        }
+        if(useFragment) {
+            console.log('fragment');
+            ul.appendChild(fragment);
+        }
         console.timeEnd('fillUl');
     }
 
-    function appendLi() {
-        var liClone = createLi();
-        liRetainingArray.push(liClone);
-        liClone._heavyObject = new HeavyObject();
-        ul.appendChild(liClone);
+    function appendLi(useFragment) {
+        var li = createLi();
+        liRetainingArray.push(li);
+        if(!useFragment) ul.appendChild(li);
         if(readHeightCheckBox.checked) readHeight();
+        return li;
     }
 
     function toggle() {
@@ -48,13 +66,11 @@
     }
 
     function start() {
-        console.timeline('experiment');
         intervalIndex = setInterval(fillUl, 1000);
         fillUl();
     }
 
     function stop() {
-        console.timelineEnd('experiment');
         clearInterval(intervalIndex);
         intervalIndex = null;
     }
