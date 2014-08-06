@@ -1,0 +1,14 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "ejs": "*",
+    "express": "3.15.3",
+    "less-middleware": "~0.1.15",
+    "lodash": "^2.4.1"
+  }
+}

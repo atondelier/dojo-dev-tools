@@ -1,0 +1,12 @@
+{
+    "home": {
+        "method": "get",
+        "path": "/",
+        "action": "main:index"
+    },
+    "forcedLayout": {
+        "method": "get",
+        "path": "/forcedLayout",
+        "action": "main:forcedLayout"
+    }
+}
